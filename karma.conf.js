@@ -81,10 +81,23 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    // Coverage settings
+    coverageReporter: {
+      dir: 'coverage',
+      subdir: function(browser) {
+        return browser.toLowerCase().split(/[ \-]/)[0];
+      },
+      reporters: [
+        { type: 'json', subdir: '.', file: 'coverage.json' },
+        { type: 'text', subdir: '.', file: 'coverage.txt' },
+        { type: 'text-summary', subdir: '.' },
+      ],
+    },
   })
 }
